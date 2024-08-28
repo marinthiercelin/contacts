@@ -13,25 +13,29 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
-data class ContactListUiState(
-    val items: List<Contact> = emptyList(),
-    val isLoading: Boolean = false,
-)
+sealed class ContactListUiState {
+    data object Loading: ContactListUiState()
+    data object EmptyList: ContactListUiState()
+    data class DisplayContactList(val contactList: List<Contact>): ContactListUiState()
+}
 
 @HiltViewModel
 class ContactListViewModel @Inject constructor(
-    private val contactRepository: ContactRepository
+    contactRepository: ContactRepository
 ) : ViewModel() {
-
     val uiState: StateFlow<ContactListUiState> = contactRepository
         .getContactListStream()
         .map { contactList ->
-            ContactListUiState(
-                items = contactList
-            )
+            if (contactList.isEmpty()){
+                ContactListUiState.EmptyList
+            } else {
+                ContactListUiState.DisplayContactList(
+                    contactList
+                )
+            }
         }.stateIn(
-            scope =viewModelScope,
+            scope = viewModelScope,
             started = WhileUiSubscribed,
-            initialValue = ContactListUiState(isLoading = true)
+            initialValue = ContactListUiState.Loading
         )
 }

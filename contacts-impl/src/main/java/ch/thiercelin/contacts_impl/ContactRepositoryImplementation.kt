@@ -28,4 +28,12 @@ class ContactRepositoryImplementation @Inject constructor(
         dao.update(ContactEntity(contact))
     }
 
+    override suspend fun getContact(contactID: ContactID): Contact? {
+        return dao.getContact(contactID.value)?.getContact()
+    }
+
+    override fun getContactStream(contactID: ContactID): Flow<Contact?> {
+        return dao.getContactStream(contactID.value).map { it?.getContact() }
+    }
+
 }

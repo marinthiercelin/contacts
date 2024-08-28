@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import ch.thiercelin.contacts.Contact
+import ch.thiercelin.contacts.ContactID
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -22,4 +23,10 @@ interface ContactDao {
 
     @Query("SELECT * FROM Contact")
     fun getAll(): Flow<List<ContactEntity>>
+
+    @Query("SELECT * FROM Contact WHERE ContactID = :contactID")
+    suspend fun getContact(contactID: String): ContactEntity?
+
+    @Query("SELECT * FROM Contact WHERE ContactID = :contactID")
+    fun getContactStream(contactID: String): Flow<ContactEntity?>
 }
