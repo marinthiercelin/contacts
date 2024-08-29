@@ -24,10 +24,10 @@ class AndroidContactRepositoryImplementation @Inject constructor(
             while (it.moveToNext()) {
                 val localID = it.getString(it.getColumnIndexOrThrow(ContactsContract.Contacts._ID))
                 val name = it.getString(it.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME))
-                ContactWithoutDetails(
+                contactsList.add(ContactWithoutDetails(
                     contactID = ContactID(localID),
-                    name = name,
-                )
+                    name = name ?: "",
+                ))
             }
             cursor.close()
         }
