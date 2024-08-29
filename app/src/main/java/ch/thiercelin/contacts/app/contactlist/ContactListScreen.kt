@@ -13,12 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ch.thiercelin.contacts.Contact
 import ch.thiercelin.contacts.ContactID
+import ch.thiercelin.contacts.ContactWithoutDetails
 
 @Composable
 fun ContactListScreen(
-    onContactClick: (Contact) -> Unit,
+    onContactClick: (ContactID) -> Unit,
     viewModel: ContactListViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -30,7 +30,7 @@ fun ContactListScreen(
 }
 
 @Composable
-fun NonEmptyListView(contactList: List<Contact>, onContactClick: (Contact) -> Unit) {
+fun NonEmptyListView(contactList: List<ContactWithoutDetails>, onContactClick: (ContactID) -> Unit) {
     LazyColumn {
         items(contactList) { contact ->
             ContactItem(contact, onContactClick)
@@ -39,11 +39,11 @@ fun NonEmptyListView(contactList: List<Contact>, onContactClick: (Contact) -> Un
 }
 
 @Composable
-private fun ContactItem(contact: Contact, onContactClick: (Contact) -> Unit) {
+private fun ContactItem(contact: ContactWithoutDetails, onContactClick: (ContactID) -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onContactClick(contact) }
+            .clickable { onContactClick(contact.contactID) }
     ) {
         Text(contact.name)
     }
@@ -65,7 +65,7 @@ fun NonEmptyListPreview() {
     NonEmptyListView(
         onContactClick = {},
         contactList = (0..5).map { index ->
-        Contact(
+        ContactWithoutDetails(
             contactID = ContactID("id$index"),
             name = "contact $index"
         )

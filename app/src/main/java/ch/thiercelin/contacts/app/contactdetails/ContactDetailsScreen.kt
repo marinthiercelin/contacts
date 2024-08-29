@@ -10,7 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ch.thiercelin.contacts.Contact
+import ch.thiercelin.contacts.ContactWithDetails
 import ch.thiercelin.contacts.ContactID
 import ch.thiercelin.contacts.EmailAddress
 import ch.thiercelin.contacts.PhoneNumber
@@ -30,7 +30,7 @@ fun ContactDetailsScreen(
 }
 
 @Composable
-private fun ContactDetailsView(contact: Contact) {
+private fun ContactDetailsView(contact: ContactWithDetails) {
     Column {
         Text(text = contact.name)
         EmailAddressListSection(emailAddresses = contact.emailAddresses)
@@ -83,13 +83,13 @@ private fun ErrorMessageView(errorMessage: Int) {
 
 @Composable
 private fun LoadingView() {
-    
+    // TODO : make a loading screen
 }
 
 @Preview
 @Composable
 fun ContactDetailsPreview() {
-    ContactDetailsView(contact = Contact(
+    ContactDetailsView(contact = ContactWithDetails(
         contactID = ContactID("ID"),
         name = "Contact name",
         emailAddresses = listOf(EmailAddress("address@example.com")),

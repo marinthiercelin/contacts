@@ -64,7 +64,7 @@ fun ContactsNavGraph(
             ContactsDestinations.CONTACT_LIST_ROUTE,
         ) {
             ContactListScreen(
-                onContactClick = { contact -> navActions.navigateToContactDetails(contact.contactID) }
+                onContactClick = { contactID -> navActions.navigateToContactDetails(contactID) }
             )
         }
         composable(
