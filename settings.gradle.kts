@@ -21,5 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "ContactsAndroid"
 include(":app")
-include(":contacts-impl")
-include(":contacts")

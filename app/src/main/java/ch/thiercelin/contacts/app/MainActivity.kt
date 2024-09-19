@@ -3,7 +3,7 @@ package ch.thiercelin.contacts.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.MaterialTheme
+import ch.thiercelin.contacts.app.ui.App
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -11,11 +11,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme {
-                PermissionRequestScreen {
-                    ContactsNavGraph()
-                }
-            }
+            App()
         }
     }
 }
