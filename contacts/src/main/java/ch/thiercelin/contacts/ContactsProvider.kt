@@ -1,6 +1,6 @@
 package ch.thiercelin.contacts
 
-interface ContactRepository {
+interface ContactsProvider {
     suspend fun getContactList(): List<ContactWithoutDetails>
     suspend fun getContactDetails(contactID: ContactID): ContactWithDetails?
 }

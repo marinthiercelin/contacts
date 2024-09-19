@@ -2,7 +2,7 @@ package ch.thiercelin.contacts.app.contactlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ch.thiercelin.contacts.ContactRepository
+import ch.thiercelin.contacts.ContactsProvider
 import ch.thiercelin.contacts.ContactWithoutDetails
 import ch.thiercelin.contacts.app.util.WhileUiSubscribed
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,7 @@ sealed class ContactListUiState {
 
 @HiltViewModel
 class ContactListViewModel @Inject constructor(
-    contactRepository: ContactRepository
+    contactRepository: ContactsProvider
 ) : ViewModel() {
     val uiState: StateFlow<ContactListUiState> = flow {
         emit(contactRepository.getContactList())

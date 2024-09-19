@@ -3,7 +3,7 @@ package ch.thiercelin.contacts.app.contactdetails
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ch.thiercelin.contacts.ContactRepository
+import ch.thiercelin.contacts.ContactsProvider
 import ch.thiercelin.contacts.app.ContactsDestinationsArgs
 import ch.thiercelin.contacts.ContactID
 import ch.thiercelin.contacts.ContactWithDetails
@@ -12,7 +12,6 @@ import com.example.contactsandroid.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -28,7 +27,7 @@ sealed class ContactDetailsUiState {
 
 @HiltViewModel
 class ContactDetailsViewModel @Inject constructor(
-    private val contactRepository: ContactRepository,
+    private val contactRepository: ContactsProvider,
     savedStateHandle: SavedStateHandle
 ): ViewModel() {
     private val contactID: String = savedStateHandle[ContactsDestinationsArgs.CONTACT_ID_ARG]!!
